@@ -1,6 +1,17 @@
 // API Endpoint Konfigürasyonu
+// window.ENV_CONFIG env-config.js dosyasından gelir
+const getApiBaseUrl = () => {
+    if (window.ENV_CONFIG && window.ENV_CONFIG.API_BASE_URL) {
+        return window.ENV_CONFIG.API_BASE_URL;
+    }
+    // Fallback: localhost kontrolü
+    return window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+        ? 'http://localhost:3000/api'
+        : '/api';
+};
+
 const API_CONFIG = {
-    BASE_URL: 'http://localhost:3000/api',
+    BASE_URL: getApiBaseUrl(),
     ENDPOINTS: {
         LOGIN: '/auth/login',
         VERIFY: '/auth/verify',
